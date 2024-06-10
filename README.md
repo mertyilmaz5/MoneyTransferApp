@@ -89,7 +89,7 @@ Gönderen, alıcı ve tutar bilgilerini özetler. "Onayla" veya "Reddet" butonla
 
 ### Örnek NFCScanner.js ve Backend Bağlantıları
 
-Uygulamada NFC ve backend bağlantıları simüle edilmiştir. `NFCScanner.js` ve backend bağlantıları için örnek kodlar `services` klasöründe bulunmaktadır.
+Uygulamada NFC ve backend bağlantıları simüle edilmiştir.
 
 ## Katkıda Bulunma
 
