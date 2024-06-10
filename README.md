@@ -19,7 +19,7 @@ Bu proje, React Native kullanarak basit bir ödeme senaryosunu simüle eden bir 
 - Node.js
 - npm veya yarn
 - React Native CLI
-- Android Studio veya Xcode (platforma göre)
+- Android Studio veya Xcode (platforma göre, projede mevcut değil)
 
 ### Adımlar
 
@@ -40,13 +40,19 @@ Bu proje, React Native kullanarak basit bir ödeme senaryosunu simüle eden bir 
 
 3. **Android veya iOS projesini hazırlayın**
 
-   Android:
+   Expo Go:
+
+   ```bash
+   npm start -c
+   ```
+
+   Android(projede mevcut değil):
 
    ```bash
    npx react-native run-android
    ```
 
-   iOS:
+   iOS(projede mevcut değil):
 
    ```bash
    npx pod-install
