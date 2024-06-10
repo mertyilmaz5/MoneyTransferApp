@@ -1,7 +1,3 @@
-Tabii, aşağıda bu proje için detaylı bir README dosyası bulabilirsiniz:
-
----
-
 # React Native Payment Demo
 
 Bu proje, React Native kullanarak basit bir ödeme senaryosunu simüle eden bir mobil uygulamadır. Uygulama, kullanıcıların giriş yaparak hesaplarını seçmelerine, tutar belirlemelerine ve ödeme işlemi yapmalarına olanak tanır. Uygulama aynı zamanda NFC tarama simülasyonu ve backend bağlantıları için örnekler içerir.
