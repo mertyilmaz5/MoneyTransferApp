@@ -20,7 +20,7 @@ const App = () => {
           component={TransferRequestScreen}
         />
         <Stack.Screen name="Confirmation" component={ConfirmationScreen} />
-        <Stack.Screen name="ReceiverScreen" component={ReceiverScreen} />
+        <Stack.Screen name="Receiver" component={ReceiverScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

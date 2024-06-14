@@ -1,3 +1,5 @@
+// RecipientList.js
+
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -7,102 +9,155 @@ import {
   ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
+  Modal,
 } from "react-native";
+import { getAllAccounts } from "../services/api";
 
-const recipients = [
-  { id: "1", IBAN: "TR123456789012345678901234", name: "MERT YILMAZ" },
-  { id: "2", IBAN: "TR234567890123456789012345", name: "FATİH VAROL" },
-];
-
-const RecipientList = ({ navigation, onClose, sender, amount }) => {
-  const [selectedRecipient, setSelectedRecipient] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+const RecipientList = ({
+  navigation,
+  modalVisible,
+  setModalVisible,
+  senderInfo,
+  amount,
+}) => {
+  const [accounts, setAccounts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    if (modalVisible) {
+      setIsLoading(true);
+      setTimeout(() => {
+        fetchAccounts();
+      }, 3000); // 3 saniye gecikme ekleniyor
+    }
+  }, [modalVisible]);
+
+  const fetchAccounts = async () => {
+    try {
+      const allAccounts = await getAllAccounts();
+      setAccounts(allAccounts);
+    } catch (error) {
+      console.error("Hesaplar alınamadı:", error);
+    } finally {
       setIsLoading(false);
-    }, 3000);
+    }
+  };
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleSelectRecipient = (recipientId) => {
-    setSelectedRecipient(recipientId);
+  const handleSelectRecipient = (account) => {
+    setSelectedAccount(account);
   };
 
   const handleConfirm = () => {
-    if (!selectedRecipient) {
+    if (!selectedAccount) {
       console.log("Lütfen bir alıcı seçin.");
       return;
     }
-    const selected = recipients.find(
-      (recipient) => recipient.id === selectedRecipient
-    );
-    console.log("Seçilen Alıcı:", selected);
-    onClose();
+    // Alıcı bilgilerini gönder
     navigation.navigate("Confirmation", {
-      senderInfo: sender,
-      amount,
-      recipientInfo: selected,
+      senderInfo: senderInfo,
+      amount: amount,
+      recipientInfo: selectedAccount,
     });
+
+    setModalVisible(false);
   };
 
   const renderItem = ({ item }) => {
-    const isSelected = selectedRecipient === item.id;
+    const isSelected =
+      selectedAccount && selectedAccount.accountID === item.accountID;
     return (
-      <TouchableOpacity onPress={() => handleSelectRecipient(item.id)}>
+      <TouchableOpacity onPress={() => handleSelectRecipient(item)}>
         <View style={[styles.item, isSelected && styles.selectedItem]}>
-          <Text>IBAN: {item.IBAN}</Text>
-          <Text>Adı: {item.name}</Text>
+          <Text style={styles.itemText}>IBAN: {item.iban}</Text>
+          <Text style={styles.itemText}>Alıcı: {item.userID}</Text>
         </View>
       </TouchableOpacity>
     );
   };
 
   return (
-    <View style={styles.container}>
-      {isLoading ? (
-        <>
-          <ActivityIndicator size="large" color="#0000ff" />
-          <Text style={{ textAlign: "center", margin: 10 }}>
-            NFC Cihazları taranıyor...
-          </Text>
-        </>
-      ) : (
-        <>
-          <Text style={styles.heading}>Alıcılar</Text>
-          <FlatList
-            data={recipients}
-            keyExtractor={(item) => item.id}
-            renderItem={renderItem}
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => setModalVisible(false)}
+    >
+      <View style={styles.modalContainer}>
+        <View style={styles.modalContent}>
+          <Text style={styles.heading}>Alıcıları Bul</Text>
+          {isLoading ? (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" color="#0000ff" />
+              <Text style={styles.loadingText}>NFC taraması Yapılıyor...</Text>
+            </View>
+          ) : (
+            <FlatList
+              data={accounts}
+              keyExtractor={(item) => item.accountID.toString()}
+              renderItem={renderItem}
+              style={styles.list}
+            />
+          )}
+          <Button
+            title="Seçimi Onayla"
+            onPress={handleConfirm}
+            disabled={!selectedAccount}
           />
-          <Button title="Onayla" onPress={handleConfirm} />
-        </>
-      )}
-    </View>
+        </View>
+      </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: "80%",
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
     backgroundColor: "#fff",
-    padding: 16,
+    width: "80%",
     borderRadius: 10,
+    padding: 20,
+    alignItems: "center",
+  },
+  loadingContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
   },
   heading: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
   },
-  item: {
+  list: {
+    width: "100%",
     marginBottom: 20,
+  },
+  item: {
+    marginBottom: 10,
     padding: 10,
     borderWidth: 1,
     borderColor: "#ccc",
+    backgroundColor: "#f0f0f0",
+    width: "100%",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   selectedItem: {
     backgroundColor: "lightblue",
+  },
+  itemText: {
+    fontSize: 16,
   },
 });
 

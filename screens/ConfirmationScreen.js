@@ -1,43 +1,36 @@
+// ConfirmationScreen.js
+
 import React from "react";
-import { View, Text, Button, StyleSheet, Alert } from "react-native";
+import { View, Text, Button, StyleSheet } from "react-native";
+import { transferAmount } from "../services/api";
 
 const ConfirmationScreen = ({ navigation, route }) => {
   const { senderInfo, amount, recipientInfo } = route.params;
-
-  const handleConfirm = () => {
-    Alert.alert(
-      "Başarılı",
-      "Ödeme başarılı bir şekilde gerçekleştirildi.",
-      [
-        {
-          text: "Tamam",
-          onPress: () => {
-            setTimeout(() => {
-              navigation.navigate("ReceiverScreen", {
-                senderInfo,
-                amount,
-                recipientInfo,
-              });
-            }, 3000);
-          },
-        },
-      ],
-      { cancelable: false }
-    );
+  console.log(senderInfo.account.accountID, amount, recipientInfo.accountID);
+  const handleConfirm = async () => {
+    try {
+      await transferAmount(senderInfo.account.iban, recipientInfo.iban, amount);
+      navigation.navigate("Receiver", {
+        senderInfo: senderInfo,
+        amount: amount,
+        recipientInfo: recipientInfo,
+      });
+    } catch (error) {
+      console.error("Transfer işlemi gerçekleştirilemedi:", error);
+      // Hata durumunda kullanıcıya bilgilendirme gösterebilirsiniz
+    }
   };
 
   const handleReject = () => {
-    Alert.alert("Reddedildi", "Ödeme işlemi reddedildi.");
+    navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Onaylama Ekranı</Text>
-      <Text>Gönderen: {senderInfo.name}</Text>
-      <Text>IBAN: {senderInfo.IBAN}</Text>
+      <Text>Gönderen: {senderInfo.account.iban}</Text>
+      <Text>Alıcı: {recipientInfo.iban}</Text>
       <Text>Gönderilecek Tutar: {amount} TL</Text>
-      <Text>Alıcı: {recipientInfo.name}</Text>
-      <Text>Alıcı IBAN: {recipientInfo.IBAN}</Text>
       <View style={styles.buttonContainer}>
         <Button title="Onayla" onPress={handleConfirm} />
         <Button title="Reddet" onPress={handleReject} color="red" />
@@ -52,6 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
+    padding: 16,
   },
   heading: {
     fontSize: 24,

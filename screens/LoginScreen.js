@@ -1,17 +1,36 @@
+// LoginScreen.js
+
 import React, { useState } from "react";
-import { View, TextInput, Button, StyleSheet, Text, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from "react-native";
+import { loginUser } from "../services/api";
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!username || !password) {
-      Alert.alert("Hata", "Lütfen kullanıcı adı ve şifre girin.");
+      Alert.alert("Giriş Hatası", "Lütfen kullanıcı adı ve şifre girin.");
       return;
     }
-    // Giriş işlemleri burada yapılabilir
-    navigation.navigate("TransferList");
+
+    try {
+      const userData = await loginUser(username, password);
+      // Başarılı giriş durumunda userData içinde kullanıcı bilgileri olabilir
+      // Örneğin: navigation.navigate('TransferList', { userId: userData.userId });
+      console.log("Kullanıcı bilgileri:", userData);
+      navigation.navigate("TransferList", { userId: userData.userID });
+    } catch (error) {
+      console.error("Giriş hatası:", error);
+      Alert.alert("Giriş Hatası", "Kullanıcı adı veya şifre hatalı.");
+    }
   };
 
   return (
@@ -30,7 +49,9 @@ const LoginScreen = ({ navigation }) => {
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Giriş" onPress={handleLogin} />
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Giriş</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -50,11 +71,25 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "80%",
-    padding: 10,
+    height: 40,
     borderWidth: 1,
     borderColor: "#ccc",
-    marginBottom: 20,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+  button: {
+    backgroundColor: "blue",
+    width: "80%",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 5,
+    marginTop: 20,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

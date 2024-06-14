@@ -1,62 +1,41 @@
+// TransferRequest.js
+
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Button,
-  Modal,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, Button, StyleSheet } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 import RecipientList from "../components/RecipientList";
 
-const TransferRequestScreen = ({ navigation, route }) => {
-  const { sender, amount } = route.params;
+const TransferRequest = ({ navigation, route }) => {
+  const { senderInfo, amount } = route.params;
   const [modalVisible, setModalVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleNfcPayment = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setModalVisible(true);
-    }, 3000);
+  const handleOpenRecipientList = () => {
+    setModalVisible(true);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Gönderen Bilgisi</Text>
-      <Text>IBAN: {sender.IBAN}</Text>
-      <Text>Hesap Adı: {sender.accountName}</Text>
-      <Text>Gönderilecek Tutar: {amount} TL</Text>
+      <Text style={styles.heading}>Gönderen Özeti</Text>
+      <Text>Gönderen: {senderInfo.account.iban}</Text>
+      <Text>Gönderilen Tutar: {amount}</Text>
       <View style={styles.qrCodeContainer}>
-        <QRCode value={sender.IBAN} size={200} />
+        <QRCode
+          value={senderInfo.account.iban + senderInfo.account.userID + amount}
+          size={200}
+        />
       </View>
-      <Button title="NFC ile Ödeme" onPress={handleNfcPayment} />
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          {isLoading ? (
-            <View style={styles.loadingContainer}>
-              <ActivityIndicator size="large" color="#0000ff" />
-              <Text style={{ textAlign: "center", marginTop: 10 }}>
-                Tarama yapılıyor...
-              </Text>
-            </View>
-          ) : (
-            <RecipientList
-              navigation={navigation}
-              onClose={() => setModalVisible(false)}
-              sender={sender}
-              amount={amount}
-            />
-          )}
-        </View>
-      </Modal>
+      <Button
+        title="NFC İle Gönder"
+        onPress={handleOpenRecipientList}
+        style={styles.button}
+      />
+      <RecipientList
+        navigation={navigation}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        senderInfo={senderInfo}
+        amount={amount}
+      />
     </View>
   );
 };
@@ -64,28 +43,22 @@ const TransferRequestScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
     padding: 16,
   },
   heading: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 20,
   },
   qrCodeContainer: {
     marginVertical: 20,
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  loadingContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+  button: {
+    marginTop: 20,
   },
 });
 
-export default TransferRequestScreen;
+export default TransferRequest;
