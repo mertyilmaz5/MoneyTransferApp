@@ -23,7 +23,7 @@ const TransferRequest = ({ navigation, route }) => {
       </View>
       <View style={styles.qrCodeContainer}>
         <QRCode
-          value={senderInfo.account.iban + senderInfo.account.userID + amount}
+          value={senderInfo.account.iban + senderInfo.username + amount}
           size={200}
         />
       </View>

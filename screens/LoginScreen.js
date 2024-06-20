@@ -25,7 +25,7 @@ const LoginScreen = ({ navigation }) => {
     try {
       const userData = await loginUser(username, password);
       console.log("Kullanıcı bilgileri:", userData);
-      navigation.navigate("TransferList", { userId: userData.userID });
+      navigation.navigate("TransferList", { userId: userData.userID, username: userData.userName });
     } catch (error) {
       console.error("Giriş hatası:", error);
       Alert.alert("Giriş Hatası", "Kullanıcı adı veya şifre hatalı.");

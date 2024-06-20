@@ -15,7 +15,7 @@ import {
 import { getUserAccounts, getUserTransactions } from "../services/api";
 
 const TransferList = ({ navigation, route }) => {
-  const { userId } = route.params;
+  const { userId, username } = route.params;
   const [accounts, setAccounts] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [amount, setAmount] = useState("");
@@ -79,8 +79,9 @@ const TransferList = ({ navigation, route }) => {
       return;
     }
 
+    console.log(userId, selectedAccount, amount, username)
     navigation.navigate("TransferRequest", {
-      senderInfo: { userId: userId, account: selectedAccount },
+      senderInfo: { userId: userId, account: selectedAccount, username: username },
       amount: parseFloat(amount),
     });
   };
@@ -237,7 +238,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     borderRadius: 5,
-    marginTop: 20,
+    marginTop: 10,
+    marginBottom: 20,
   },
   buttonText: {
     color: "#fff",
