@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  Image,
 } from "react-native";
 import { loginUser } from "../services/api";
 
@@ -23,8 +24,6 @@ const LoginScreen = ({ navigation }) => {
 
     try {
       const userData = await loginUser(username, password);
-      // Başarılı giriş durumunda userData içinde kullanıcı bilgileri olabilir
-      // Örneğin: navigation.navigate('TransferList', { userId: userData.userId });
       console.log("Kullanıcı bilgileri:", userData);
       navigation.navigate("TransferList", { userId: userData.userID });
     } catch (error) {
@@ -35,22 +34,25 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Giriş Yap</Text>
+      <Image source={require("../components/logo.png")} style={styles.logo} />
+      <Text style={styles.heading}>Hoşgeldiniz!</Text>
       <TextInput
         style={styles.input}
         placeholder="Kullanıcı Adı"
+        placeholderTextColor="#ccc"
         value={username}
         onChangeText={setUsername}
       />
       <TextInput
         style={styles.input}
         placeholder="Şifre"
+        placeholderTextColor="#ccc"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Giriş</Text>
+        <Text style={styles.buttonText}>Giriş Yap</Text>
       </TouchableOpacity>
     </View>
   );
@@ -62,23 +64,31 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: "#f0f8ff", // Açık mavi arka plan
+  },
+  logo: {
+    width: 300,
+    height: 100,
+    marginBottom: 20,
   },
   heading: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#2e8b57", // Yeşil renk
     marginBottom: 20,
   },
   input: {
     width: "80%",
     height: 40,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#1e90ff", // Mavi kenarlık
+    borderRadius: 5,
     marginBottom: 10,
     paddingHorizontal: 10,
+    backgroundColor: "#fff", // Beyaz arka plan
   },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#1e90ff", // Mavi buton
     width: "80%",
     height: 40,
     justifyContent: "center",

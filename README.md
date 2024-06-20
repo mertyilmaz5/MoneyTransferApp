@@ -1,6 +1,6 @@
 # React Native Payment Demo
 
-Bu proje, React Native kullanarak basit bir ödeme senaryosunu simüle eden bir mobil uygulamadır. Uygulama, kullanıcıların giriş yaparak hesaplarını seçmelerine, tutar belirlemelerine ve ödeme işlemi yapmalarına olanak tanır. Uygulama aynı zamanda NFC tarama simülasyonu ve backend bağlantıları için örnekler içerir.
+Bu proje, React Native kullanarak basit bir ödeme senaryosunu simüle eden bir mobil uygulamadır. Uygulama, kullanıcıların giriş yaparak hesaplarını seçmelerine, tutar belirlemelerine ve ödeme işlemi yapmalarına olanak tanır. Aynı zamanda NFC tarama simülasyonu ve backend bağlantıları için örnekler içerir.
 
 ## Özellikler
 
@@ -69,7 +69,7 @@ Kullanıcı adı ve şifre giriş alanları ile birlikte "Giriş" butonu bulunur
 
 #### 2. TransferListScreen
 
-Statik olarak tanımlanmış gönderen hesapları listeler. Tutar girişi yapılabilen bir alan ve "Onay" butonu bulunur. Hesap seçilip tutar girildikten sonra `TransferRequestScreen` ekranına yönlendirir.
+Veritabanında tanımlanmış gönderen hesapları listeler. Tutar girişi yapılabilen bir alan ve "Onay" butonu bulunur. Hesap seçilip tutar girildikten sonra `TransferRequestScreen` ekranına yönlendirir.
 
 #### 3. TransferRequestScreen
 
@@ -77,19 +77,19 @@ Seçilen gönderen hesap bilgileri özetlenir ve QR kod olarak gösterilir. "NFC
 
 #### 4. RecipientList
 
-Statik olarak tanımlanmış alıcı hesapları listeler. Alıcı seçilip "Onayla" butonuna tıklanınca `ConfirmationScreen` ekranına yönlendirir.
+Veritabanında tanımlanmış alıcı hesapları listeler. Alıcı seçilip "Onayla" butonuna tıklanınca `ConfirmationScreen` ekranına yönlendirir.
 
 #### 5. ConfirmationScreen
 
-Gönderen, alıcı ve tutar bilgilerini özetler. "Onayla" veya "Reddet" butonları bulunur. Onaylanınca 3 saniye bekler ve `ReceiverScreen` ekranına yönlendirir.
+Gönderen, alıcı ve tutar bilgilerini özetler. "Onayla" veya "Reddet" butonları bulunur. Onaylanınca para aktarım işlemi gerçekleşir ve `ReceiverScreen` ekranına yönlendirir.
 
 #### 6. ReceiverScreen
 
-Ödeme işleminin başarıyla gerçekleştiğini gösterir ve ödeme bilgilerini özetler. "Ana Sayfaya Dön" butonuna tıklayarak `TransferListScreen` ekranına döner.
+Ödeme işleminin başarıyla gerçekleştiğini gösterir ve ödeme bilgilerini özetler ve `TransferListScreen` ekranına döner.
 
 ### Örnek NFCScanner.js ve Backend Bağlantıları
 
-Uygulamada NFC ve backend bağlantıları simüle edilmiştir.
+Uygulamada NFC bağlantısı simüle edilmiştir.
 
 ## Katkıda Bulunma
 
@@ -105,6 +105,8 @@ Katkıda bulunmak isterseniz, lütfen bir fork yapın, branş oluşturun, deği�
 
 Bu proje MIT Lisansı ile lisanslanmıştır. Daha fazla bilgi için LICENSE dosyasına bakınız.
 
----
+## Uygulama Yapısı ve İşlevselliği
 
-Bu README dosyası, projeyi klonlayan ve çalıştırmak isteyen geliştiricilere kapsamlı bir rehberlik sağlar.
+Bu uygulama, kullanıcıların banka hesaplarını yönetmelerini ve finansal işlemlerini kolayca yapmalarını sağlamak amacıyla tasarlanmıştır. Her bir ekran, belirli bir işlevi yerine getirirken kullanıcı dostu arayüz tasarımı ve etkili veri yönetimi ile geliştirilmiştir. Kullanıcılar, bu uygulama sayesinde banka işlemlerini hızlı, güvenli ve kullanıcı dostu bir şekilde gerçekleştirebilirler.
+
+Bu yazı, uygulamanın genel yapısını ve her bir ekranın amacını açıklayarak, nasıl çalıştığını ve hangi teknolojilerle geliştirildiğini vurgulamaktadır. Her bir ekranın ne işe yaradığını ve kullanıcı deneyimini nasıl iyileştirdiğini anlatarak, uygulamanın temel işlevselliğini anlamak ve takip etmek için yararlı bir kaynak sağlar.

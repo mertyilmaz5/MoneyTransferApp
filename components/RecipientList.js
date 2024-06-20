@@ -85,11 +85,11 @@ const RecipientList = ({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.heading}>Alıcıları Bul</Text>
+          <Text style={styles.heading}>NFC İle Gönder</Text>
           {isLoading ? (
             <View style={styles.loadingContainer}>
-              <ActivityIndicator size="large" color="#0000ff" />
-              <Text style={styles.loadingText}>NFC taraması Yapılıyor...</Text>
+              <ActivityIndicator size="large" color="#1e90ff" />
+              <Text style={styles.loadingText}>NFC ile alıcılar taranıyor...</Text>
             </View>
           ) : (
             <FlatList
@@ -99,11 +99,16 @@ const RecipientList = ({
               style={styles.list}
             />
           )}
-          <Button
-            title="Seçimi Onayla"
+          <TouchableOpacity
+            style={[
+              styles.confirmButton,
+              !selectedAccount && styles.confirmButtonDisabled,
+            ]}
             onPress={handleConfirm}
             disabled={!selectedAccount}
-          />
+          >
+            <Text style={styles.confirmButtonText}>Alıcıyı Seç</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>
@@ -132,11 +137,13 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 10,
     fontSize: 16,
+    color: "#333",
   },
   heading: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 10,
+    color: "#2e8b57", // Yeşil renk
+    marginBottom: 20,
   },
   list: {
     width: "100%",
@@ -144,20 +151,35 @@ const styles = StyleSheet.create({
   },
   item: {
     marginBottom: 10,
-    padding: 10,
+    padding: 15,
     borderWidth: 1,
     borderColor: "#ccc",
-    backgroundColor: "#f0f0f0",
-    width: "100%",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
+    backgroundColor: "#e0f7fa", // Açık mavi arka plan
+    borderRadius: 10,
   },
   selectedItem: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#b3e5fc", // Daha açık mavi
+    borderColor: "#0288d1", // Seçili item için kenarlık rengi
   },
   itemText: {
     fontSize: 16,
+    color: "#333",
+  },
+  confirmButton: {
+    backgroundColor: "#1e90ff", // Mavi buton
+    width: "80%",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  confirmButtonDisabled: {
+    backgroundColor: "#87cefa", // Açık mavi buton (devre dışı)
+  },
+  confirmButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

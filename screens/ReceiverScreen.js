@@ -9,7 +9,7 @@ const ReceiverScreen = ({ navigation, route }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate("TransferList", { userId: senderInfo.userId }); // 3 saniye sonra TransferList ekranına yönlendirme
-    }, 3000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -17,14 +17,23 @@ const ReceiverScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Ödeme Başarılı!</Text>
-      <Text style={styles.info}>
-        Gönderen: {senderInfo.account.iban} - {senderInfo.userID}
-      </Text>
-      <Text style={styles.info}>Alıcı: {recipientInfo.iban}</Text>
-      <Text style={styles.info}>Gönderilen Tutar: {amount} TL</Text>
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoLabel}>Gönderen:</Text>
+        <Text style={styles.info}>
+          {senderInfo.account.iban}
+        </Text>
+      </View>
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoLabel}>Alıcı:</Text>
+        <Text style={styles.info}>{recipientInfo.iban}</Text>
+      </View>
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoLabel}>Gönderilen Tutar:</Text>
+        <Text style={styles.info}>{amount} TL</Text>
+      </View>
       <ActivityIndicator
         size="large"
-        color="#0000ff"
+        color="#1e90ff"
         style={{ marginTop: 20 }}
       />
     </View>
@@ -36,17 +45,37 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#f0f8ff",
     padding: 16,
   },
   heading: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#2e8b57", // Yeşil renk
     marginBottom: 20,
+  },
+  infoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+    backgroundColor: "#e0f7fa", // Açık mavi arka plan
+    borderColor: "#1e90ff",
+    borderRadius: 10,
+    borderWidth: 1,
+    padding: 10,
+    width: "100%",
+  },
+  infoLabel: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+    width: "40%",
   },
   info: {
     fontSize: 18,
-    marginBottom: 10,
+    color: "#333",
+    width: "60%",
+    textAlign: "right",
   },
 });
 

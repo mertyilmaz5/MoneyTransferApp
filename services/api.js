@@ -44,8 +44,8 @@ export const transferAmount = async (
 ) => {
   try {
     const response = await api.post("/Transaction/Transfer", {
-      receiveriban: fromAccountIBAN,
-      senderiban: toAccountIBAN,
+      senderiban: fromAccountIBAN,
+      receiveriban: toAccountIBAN,
       amount: amount,
     });
     return response.data;
