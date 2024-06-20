@@ -1,5 +1,3 @@
-// TransferList.js
-
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -37,10 +35,18 @@ const TransferList = ({ navigation, route }) => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchUserAccounts();
       fetchUserTransactions();
+      setAmount("");
     });
 
     return unsubscribe;
   }, [navigation]);
+
+  useEffect(() => {
+    // İlk hesabı seç
+    if (accounts.length > 0) {
+      handleAccountSelect(accounts[0]);
+    }
+  }, [accounts]);
 
   const fetchUserAccounts = async () => {
     try {
@@ -109,7 +115,7 @@ const TransferList = ({ navigation, route }) => {
         ) : (
           <FlatList
             data={accounts}
-            keyExtractor={(item) => item.AccountId?.toString()}
+            keyExtractor={(item) => item?.AccountId?.toString() || Math.random().toString()} // Güvenli bir keyExtractor kullanımı
             renderItem={renderItem}
             style={styles.list}
           />
