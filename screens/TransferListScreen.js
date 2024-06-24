@@ -101,7 +101,7 @@ const TransferList = ({ navigation, route }) => {
       ]}
     >
       <Text style={styles.itemText}>IBAN: {item.iban}</Text>
-      <Text style={styles.itemText}>Bakiye: {item.balance} TL</Text>
+      <Text style={styles.itemText}>Bakiye: {(item.balance).toLocaleString("tr-TR")} TL</Text>
     </TouchableOpacity>
   );
 
