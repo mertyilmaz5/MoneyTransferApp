@@ -8,6 +8,7 @@ Bu proje, React Native kullanarak basit bir ödeme senaryosunu simüle eden bir 
 - Gönderen Hesap Listesi
 - Tutar Girişi
 - QR Kod ile Gönderici Bilgisi
+- Veri Şifreleme
 - NFC Tarama Simülasyonu
 - Alıcı Hesap Listesi
 - Ödeme Onayı ve Bildirimi
@@ -87,9 +88,9 @@ Gönderen, alıcı ve tutar bilgilerini özetler. "Onayla" veya "Reddet" butonla
 
 Ödeme işleminin başarıyla gerçekleştiğini gösterir ve ödeme bilgilerini özetler ve `TransferListScreen` ekranına döner.
 
-### Örnek NFCScanner.js ve Backend Bağlantıları
+### Örnek NFCScanner.js, Hashing.js ve Backend Bağlantıları
 
-Uygulamada NFC bağlantısı simüle edilmiştir.
+Uygulamada NFC bağlantısı ve veri şifreleme fonksiyonları simüle edilmiştir. Backend bağlantıları ve API dosyaları proje dizinine eklenmiştir.
 
 ## Katkıda Bulunma
 
@@ -105,8 +106,6 @@ Katkıda bulunmak isterseniz, lütfen bir fork yapın, branş oluşturun, deği�
 
 Bu proje MIT Lisansı ile lisanslanmıştır. Daha fazla bilgi için LICENSE dosyasına bakınız.
 
-## Uygulama Yapısı ve İşlevselliği
+## Uygulama İşlevselliği ve Ekran Görüntüleri
 
 Bu uygulama, kullanıcıların banka hesaplarını yönetmelerini ve finansal işlemlerini kolayca yapmalarını sağlamak amacıyla tasarlanmıştır. Her bir ekran, belirli bir işlevi yerine getirirken kullanıcı dostu arayüz tasarımı ve etkili veri yönetimi ile geliştirilmiştir. Kullanıcılar, bu uygulama sayesinde banka işlemlerini hızlı, güvenli ve kullanıcı dostu bir şekilde gerçekleştirebilirler.
-
-Bu yazı, uygulamanın genel yapısını ve her bir ekranın amacını açıklayarak, nasıl çalıştığını ve hangi teknolojilerle geliştirildiğini vurgulamaktadır. Her bir ekranın ne işe yaradığını ve kullanıcı deneyimini nasıl iyileştirdiğini anlatarak, uygulamanın temel işlevselliğini anlamak ve takip etmek için yararlı bir kaynak sağlar.
