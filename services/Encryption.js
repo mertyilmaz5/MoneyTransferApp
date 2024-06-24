@@ -1,36 +1,40 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
-import * as Crypto from "expo-crypto"; // Expo crypto kullanarak hashing işlemi simülasyonu
+import CryptoJS from "crypto-js";
 
-const HashingComponent = () => {
+const EncryptionComponent = () => {
     const [input, setInput] = useState("");
-    const [hashedOutput, setHashedOutput] = useState("");
+    const [encryptedOutput, setEncryptedOutput] = useState("");
 
-    const handleHash = async () => {
-        // SHA-256 ile hash oluşturma
-        const digest = await Crypto.digestStringAsync(
-            Crypto.CryptoDigestAlgorithm.SHA256,
-            input
-        );
-        setHashedOutput(digest);
+    const handleEncrypt = () => {
+        const key = CryptoJS.enc.Utf8.parse('1234567890123456'); // AES için anahtar (16 byte)
+        const iv = CryptoJS.enc.Utf8.parse('1234567890123456'); // IV (16 byte)
+
+        const encrypted = CryptoJS.AES.encrypt(input, key, {
+            iv: iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7
+        }).toString();
+
+        setEncryptedOutput(encrypted);
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.heading}>Hashing Component</Text>
+            <Text style={styles.heading}>AES Encryption Component (Gösterim Amaçlı)</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Veri girin"
                 value={input}
                 onChangeText={(text) => setInput(text)}
             />
-            <TouchableOpacity style={styles.button} onPress={handleHash}>
-                <Text style={styles.buttonText}>Hashle</Text>
+            <TouchableOpacity style={styles.button} onPress={handleEncrypt}>
+                <Text style={styles.buttonText}>Şifrele</Text>
             </TouchableOpacity>
-            {hashedOutput !== "" && (
+            {encryptedOutput !== "" && (
                 <View style={styles.outputContainer}>
-                    <Text style={styles.outputLabel}>Hashed Çıktı:</Text>
-                    <Text style={styles.output}>{hashedOutput}</Text>
+                    <Text style={styles.outputLabel}>Şifrelenmiş Çıktı:</Text>
+                    <Text style={styles.output}>{encryptedOutput}</Text>
                 </View>
             )}
         </View>
@@ -89,4 +93,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HashingComponent;
+export default EncryptionComponent;
