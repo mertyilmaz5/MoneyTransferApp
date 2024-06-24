@@ -106,6 +106,26 @@ Katkıda bulunmak isterseniz, lütfen bir fork yapın, branş oluşturun, deği�
 
 Bu proje MIT Lisansı ile lisanslanmıştır. Daha fazla bilgi için LICENSE dosyasına bakınız.
 
-## Uygulama İşlevselliği ve Ekran Görüntüleri
+## Uygulama İşlevselliği
 
 Bu uygulama, kullanıcıların banka hesaplarını yönetmelerini ve finansal işlemlerini kolayca yapmalarını sağlamak amacıyla tasarlanmıştır. Her bir ekran, belirli bir işlevi yerine getirirken kullanıcı dostu arayüz tasarımı ve etkili veri yönetimi ile geliştirilmiştir. Kullanıcılar, bu uygulama sayesinde banka işlemlerini hızlı, güvenli ve kullanıcı dostu bir şekilde gerçekleştirebilirler.
+
+## Demo Video
+
+<div align="center">
+  <video src="https://github.com/mertyilmaz5/MoneyTransferApp/assets/70209008/919aeafb-f3d1-4276-a126-780c4fee98dd" width="200" height="500"/>
+</div>
+
+## Screenshots
+
+<p align="center">
+  <img src="https://github.com/mertyilmaz5/MoneyTransferApp/assets/70209008/54c43ed9-b7b9-4d81-8c34-76ea444353ad" width="200" height="400">
+  <img src="https://github.com/mertyilmaz5/MoneyTransferApp/assets/70209008/51220582-09d7-4c57-b395-b64bc7f0e0e2" width="200" height="400">
+  <img src="https://github.com/mertyilmaz5/MoneyTransferApp/assets/70209008/92db2092-f35c-46b6-bbcb-8b4e96e71855" width="200" height="400">
+  <img src="https://github.com/mertyilmaz5/MoneyTransferApp/assets/70209008/c3069be8-9b8b-406b-9a88-1197086719b1" width="200" height="400">
+  <img src="https://github.com/mertyilmaz5/MoneyTransferApp/assets/70209008/c381cadf-d960-49a9-9c65-24bf42049220" width="200" height="400">
+  <img src="https://github.com/mertyilmaz5/MoneyTransferApp/assets/70209008/b922f17f-2ab4-43c2-90b9-8af9f3be8039" width="200" height="400">
+  <img src="https://github.com/mertyilmaz5/MoneyTransferApp/assets/70209008/1d5a865a-7c02-4413-bae0-6d73186a31e8" width="200" height="400">
+  <img src="https://github.com/mertyilmaz5/MoneyTransferApp/assets/70209008/ae0192d1-fd0d-4cc7-b913-b1bfebe93220" width="200" height="400">
+</p>
+
